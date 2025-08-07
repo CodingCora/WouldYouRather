@@ -1,58 +1,58 @@
-const quoteContainer = document.getElementById('quote-container');
-const quoteText = document.getElementById('quote');
+const promptContainer = document.getElementById('prompt-container');
+const promptText = document.getElementById('prompt');
 const authorText = document.getElementById('author');
 const twitterBtn = document.getElementById('twitter');
-const newQuoteBtn = document.getElementById('new-quote');
+const newpromptBtn = document.getElementById('new-prompt');
 
 
-let apiQuotes = [];
-//Show New Quote
-function newQuote(){
-    //Pick a Random Quote from apiQuotes awway
-    const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
+let apiprompts = [];
+//Show New prompt
+function newprompt(){
+    //Pick a Random prompt from apiprompts awway
+    const prompt = apiprompts[Math.floor(Math.random() * apiprompts.length)];
 
     //Check if Author field is blank and replace with 'Unknown'
 
-    if (!quote.author){
+    if (!prompt.author){
         authorText.textContent = 'Unknown';
     } else {
-      authorText.textContent = quote.author;
+      authorText.textContent = prompt.author;
     
 }
-//Check Quote Length to determine styling
+//Check prompt Length to determine styling
 
-    if (quote.text.length > 120){
-        quoteText.classList.add('long-quote')
+    if (prompt.text.length > 120){
+        promptText.classList.add('long-prompt')
     }else{
-        quoteText.classList.remove('long-quote')
+        promptText.classList.remove('long-prompt')
     }
-    quoteText.textContent = quote.text;
+    promptText.textContent = prompt.text;
 }
-// Get Quotes from API
-async function getQuotes(){
-const apiURL = 'https://type.fit/api/quotes';
+// Get prompts from API
+async function getprompts(){
+const apiURL = 'https://type.fit/api/prompts';
     try {
         const response = await fetch(apiURL);
-        apiQuotes = await response.json();
-        newQuote();
+        apiprompts = await response.json();
+        newprompt();
     } catch (error) {
         //Catch Error Here
     }
 
 }
 
-//Tweet Quote
+//Tweet prompt
 
-function tweetQuote() {
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${quoteText.textContent} - ${authorText.textContent}`;
+function tweetprompt() {
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${promptText.textContent} - ${authorText.textContent}`;
     window.open(twitterUrl, '_blank');
 }
 
 
 //Event Listeners
 
-newQuoteBtn.addEventListener('click', newQuote);
-twitterBtn.addEventListener('click', tweetQuote);
+newpromptBtn.addEventListener('click', newprompt);
+twitterBtn.addEventListener('click', tweetprompt);
 
 //On Load
-getQuotes();
+getprompts();
